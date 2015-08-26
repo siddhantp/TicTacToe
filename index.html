@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<head>
+    <title>Tic Tac Toe By Siddhant Pathak</title>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+		<style type="text/css">
+            #container {
+            	margin:auto;
+                height: 380px;
+                width: 260px;
+            }
+            .box {
+                font-size: 64px;
+            }
+            table {
+            	position: static;
+            	border-collapse: collapse;
+                margin-top: 50px;
+            }
+            td {
+            	height: 80px;
+            	width: 80px;
+            	text-align: center;
+            }
+            #result {
+            	width:180px;
+            	height:40px;
+            	margin:auto;
+            	text-align:center;
+            	font-size: 32px;
+            }
+            #reset {
+            	display:block;
+            	width:100px;
+            	margin:auto;
+            	font-size: 32px;
+            }
+            #1 {
+            	color:blue;
+            }
+        </style>
+</head>
+<body>
+<div id="container">
+<table border="1">
+    <tr>
+		<td class="box" id="1" data-move="1"></td>
+		<td class="box" id="2" data-move="2"></td>
+		<td class="box" id="3" data-move="3"></td>
+	</tr>
+	<tr>
+		<td class="box" id="4" data-move="4"></td>
+		<td class="box" id="5" data-move="5"></td>
+		<td class="box" id="6" data-move="6"></td>
+	</tr>
+	<tr>
+		<td class="box" id="7" data-move="7"></td>
+		<td class="box" id="8" data-move="8"></td>
+		<td class="box" id="9" data-move="9"></td>
+	</tr>
+</table>
+<div>
+	<div  id="result">Turn of : X</div>
+	<button id='reset'>Reset</button>
+</div>
+</div>
+<script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+$(function() {
+    var ip, turn, count=1;
+	hit=false;
+	$('.box').click(function(){
+		if(hit==false) {
+			if (!($(this).data('move')=="X" || $(this).data('move')=="O")) {
+				if (count%2==0)
+					ip="O", turn="X";
+				else
+					ip="X", turn="O";
+
+    			$(this).empty().text(ip).data('move',ip);
+    			$('#result').empty().text("Turn of : "+turn);
+    			check();
+    			count=count+1;
+    			if (count>9&&hit==false) {
+    				$('#result').empty().text("It's a tie!");
+    				count=1;
+    			}
+			}
+		}
+	});
+    	var check=function(){
+			a=$('#1').data('move');
+			b=$('#2').data('move');
+			c=$('#3').data('move');
+			d=$('#4').data('move');
+			e=$('#5').data('move');
+			f=$('#6').data('move');
+			g=$('#7').data('move');
+			h=$('#8').data('move');
+			i=$('#9').data('move');
+			if (a==b&&b==c) {
+				hit=true;
+				count=0;
+			}
+			else if (d==e&&e==f) {
+				hit=true;
+				count=0;
+			}
+			else if (g==h&&h==i) {
+				hit=true;
+				count=0;
+			}
+			else if (a==d&&d==g) {
+				hit=true;
+				count=0;
+			}
+			else if (b==e&&e==h) {
+				hit=true;
+				count=0;
+			}
+			else if (c==f&&f==i) {
+				hit=true;
+				count=0;
+			}
+			else if (a==e&&e==i) {
+				hit=true;
+				count=0;
+			}
+			else if (c==e&&e==g) {
+				hit=true;
+				count=0;
+			}
+			else
+				hit=false;
+			if(hit==true)
+				$("#result").empty().text("Winner "+ip);
+		};
+		$(document).on('click','#reset',function(){
+			$('td').empty();
+			$('#result').empty();
+			for (i=1;i<10;i++) {
+				var_id='#'+i;
+				$(var_id).data('move',i);
+			}
+			hit=false;
+			count=1;
+			$('#result').empty().text("Turn of : X");
+		});
+});
+</script>
+</body>
+</html>
